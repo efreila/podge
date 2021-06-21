@@ -4,8 +4,8 @@ class podgeApp {
 
   constructor() {
     console.log("podgeApp Constructor!!");
-    if (instance) {
-      return instance;
+    if (podgeApp.instance) {
+      return podgeApp.instance;
     }
 
     this.instance = this;
