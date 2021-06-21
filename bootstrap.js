@@ -84,6 +84,6 @@
 })("docReady", window);
 
 docReady(() => {
-  console.log("log from podge script!");
+  console.log("log from podge script docready!");
   alert("Hello from Podge script tag!");
 });
