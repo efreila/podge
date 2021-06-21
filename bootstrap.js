@@ -16,10 +16,10 @@ class podgeApp {
   }
 }
 
-const podgeApp = new podgeApp();
-const podgeApp1 = new podgeApp();
+const podge = new podgeApp();
+const podge1 = new podgeApp();
 
-console.log(podgeApp === podgeApp1);
+console.log(podge === podge1);
 
 // Creates a global object that holds all methods, constancts, etc. related to Podge
 // if (!window.podgeApp || typeof window.podgeApp == "undefined") {
