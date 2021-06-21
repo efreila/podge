@@ -8,7 +8,7 @@ class podgeApp {
       return podgeApp.instance;
     }
 
-    this.instance = this;
+    podgeApp.instance = this;
   }
 
   foo() {
