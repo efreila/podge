@@ -1,9 +1,8 @@
 // Note: This script is run on every page
-class podgeApp {
+class PodgeApp {
   static instance;
 
   constructor() {
-    console.log("podgeApp Constructor!!");
     if (podgeApp.instance) {
       return podgeApp.instance;
     }
@@ -16,15 +15,7 @@ class podgeApp {
   }
 }
 
-const podge = new podgeApp();
-const podge1 = new podgeApp();
-
-console.log(podge === podge1);
-
-// Creates a global object that holds all methods, constancts, etc. related to Podge
-// if (!window.podgeApp || typeof window.podgeApp == "undefined") {
-//   window.podgeApp = {};
-// }
+const podgeApp = new PodgeApp();
 
 // IIFE below is a substitute implementation for jQuery's .ready() method
 // Taken from https://github.com/jfriend00/docReady
@@ -109,9 +100,25 @@ console.log(podge === podge1);
   };
   // modify line below to pass in your own method name
   // and object for the method to be attached to
-})("docReady", window);
+})("podgeDocReady", window);
 
 // Runs when document has loaded
-docReady(() => {
+podgeDocReady(() => {
   console.log("log from podge script docready!");
 });
+
+switch (window.location.pathname) {
+  case "/":
+    console.log("podge home");
+    break;
+  case "/account/register":
+    console.log("podge register");
+    break;
+
+  default:
+    break;
+}
+
+// if(window.location.pathname === "/") {
+//     console.log("podge home");
+// }
