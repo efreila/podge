@@ -3,11 +3,11 @@ class PodgeApp {
   static instance;
 
   constructor() {
-    if (podgeApp.instance) {
+    if (PodgeApp.instance) {
       return podgeApp.instance;
     }
 
-    podgeApp.instance = this;
+    PodgeApp.instance = this;
   }
 
   foo() {
