@@ -1,4 +1,32 @@
-// IIFE below is a substitute for jQuery's .ready() method
+// Note: This script is run on every page
+class podgeApp {
+  static instance;
+
+  constructor() {
+    console.log("podgeApp Constructor!!");
+    if (instance) {
+      return instance;
+    }
+
+    this.instance = this;
+  }
+
+  foo() {
+    // ...
+  }
+}
+
+const podgeApp = new podgeApp();
+const podgeApp1 = new podgeApp();
+
+console.log(podgeApp === podgeApp1);
+
+// Creates a global object that holds all methods, constancts, etc. related to Podge
+// if (!window.podgeApp || typeof window.podgeApp == "undefined") {
+//   window.podgeApp = {};
+// }
+
+// IIFE below is a substitute implementation for jQuery's .ready() method
 // Taken from https://github.com/jfriend00/docReady
 (function (funcName, baseObj) {
   "use strict";
@@ -83,7 +111,7 @@
   // and object for the method to be attached to
 })("docReady", window);
 
+// Runs when document has loaded
 docReady(() => {
   console.log("log from podge script docready!");
-  alert("Hello from Podge script tag!");
 });
