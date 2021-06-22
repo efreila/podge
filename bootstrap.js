@@ -2,10 +2,12 @@
 class PodgeApp {
   static instance;
 
-  constructor() {
+  constructor(url) {
     if (PodgeApp.instance) {
       return podgeApp.instance;
     }
+
+    console.log("making new PodgeApp instance", url);
 
     PodgeApp.instance = this;
   }
@@ -18,8 +20,6 @@ class PodgeApp {
     // || currentUrl.indexOf("register") !== -1;
   }
 }
-
-const podgeApp = new PodgeApp();
 
 // IIFE below is a substitute implementation for jQuery's .ready() method
 // Taken from https://github.com/jfriend00/docReady
@@ -109,6 +109,7 @@ const podgeApp = new PodgeApp();
 // Runs when document has loaded
 podgeDocReady(() => {
   console.log("log from podge script docready!");
+  const podgeApp = new PodgeApp(window.location.href);
 
   if (podgeApp.isLoginPage()) console.log("hello from login :)");
 });
