@@ -10,8 +10,12 @@ class PodgeApp {
     PodgeApp.instance = this;
   }
 
-  foo() {
-    // ...
+  isLoginPage(url) {
+    const currentUrl = url || window.location.href;
+
+    return currentUrl.indexOf("login") !== -1;
+
+    // || currentUrl.indexOf("register") !== -1;
   }
 }
 
@@ -105,20 +109,6 @@ const podgeApp = new PodgeApp();
 // Runs when document has loaded
 podgeDocReady(() => {
   console.log("log from podge script docready!");
+
+  if (podgeApp.isLoginPage()) console.log("hello from login :)");
 });
-
-switch (window.location.pathname) {
-  case "/":
-    console.log("podge home");
-    break;
-  case "/account/register":
-    console.log("podge register");
-    break;
-
-  default:
-    break;
-}
-
-// if(window.location.pathname === "/") {
-//     console.log("podge home");
-// }
