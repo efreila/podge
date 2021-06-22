@@ -57,9 +57,9 @@ class PodgeApp {
       // TODO!!!
       // forms = html.find("form");
     } else {
-      forms = document
-        .querySelectorAll("form")
-        .filter((form) => this.isDomElementVisible(form));
+      forms = [...document.querySelectorAll("form")].filter((form) =>
+        this.isDomElementVisible(form)
+      );
     }
 
     const loginForms = [];
