@@ -6,18 +6,25 @@ class PodgeApp {
     if (PodgeApp.instance) {
       return podgeApp.instance;
     }
-
     console.log("making new PodgeApp instance", url);
+
+    this.importNecessaryScripts(url);
 
     PodgeApp.instance = this;
   }
 
+  importNecessaryScripts(url) {
+    if (this.isLoginPage(url) || this.isRegisterPage(url)) {
+      console.log("NEED TO IMPORT SOCIAL LOGIN SCRIPT HERE");
+    }
+  }
+
   isLoginPage(url) {
-    const currentUrl = url || window.location.href;
+    return url.indexOf("login") !== -1;
+  }
 
-    return currentUrl.indexOf("login") !== -1;
-
-    // || currentUrl.indexOf("register") !== -1;
+  isRegisterPage(url) {
+    return url.indexOf("register") !== -1;
   }
 }
 
@@ -111,5 +118,5 @@ podgeDocReady(() => {
   console.log("log from podge script docready!");
   const podgeApp = new PodgeApp(window.location.href);
 
-  if (podgeApp.isLoginPage()) console.log("hello from login :)");
+  // if (podgeApp.isLoginPage()) console.log("hello from login :)");
 });
