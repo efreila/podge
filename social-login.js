@@ -5,5 +5,5 @@ podgeDocReady(() => {
   const forms = podgeApp.getForms();
 
   console.log(forms);
-  forms[0].append(<p>SOCIAL LOGIN!! FROM PODGE</p>);
+  forms[0].append("SOCIAL LOGIN!! FROM PODGE");
 });
