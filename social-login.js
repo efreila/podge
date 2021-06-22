@@ -3,8 +3,7 @@ podgeDocReady(() => {
   console.log("log from social-login.js");
   const podgeApp = new PodgeApp(window.location.href);
   const forms = podgeApp.getForms();
-  console.log(forms);
-  console.log("new new");
 
-  // if (podgeApp.isLoginPage()) console.log("hello from login :)");
+  console.log(forms);
+  forms[0].append(<p>SOCIAL LOGIN!! FROM PODGE</p>);
 });
