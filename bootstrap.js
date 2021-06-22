@@ -21,7 +21,7 @@ class PodgeApp {
     }
   }
 
-  // GENERAL
+  // GENERAL HELPERS
   loadScript(url, callback) {
     // Adding the script tag to the head as suggested before
     const head = document.head;
@@ -46,6 +46,30 @@ class PodgeApp {
   isRegisterPage(url) {
     return url.indexOf("register") !== -1;
   }
+
+  getLoginForm() {
+    const loginForm = document.querySelector("form[action='/account/login']");
+    return loginForm;
+  }
+
+  // var getCreateAccountForm = function (html) {
+  //   if (!!html) {
+  //     var forms = html.find("form");
+  //   } else {
+  //     var forms = $("form:visible");
+  //   }
+
+  //   var loginForms = [];
+  //   for (var i = 0; i < forms.length; i++) {
+  //     var form = $(forms[i]);
+  //     action = form.attr("action");
+
+  //     if (action && action.indexOf("account") !== -1) {
+  //       loginForms.push(form);
+  //     }
+  //   }
+  //   return loginForms;
+  // };
 }
 
 // IIFE below is a substitute implementation for jQuery's .ready() method
@@ -137,6 +161,4 @@ class PodgeApp {
 podgeDocReady(() => {
   console.log("log from bootstrap.js");
   const podgeApp = new PodgeApp(window.location.href);
-
-  // if (podgeApp.isLoginPage()) console.log("hello from login :)");
 });
