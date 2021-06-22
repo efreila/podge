@@ -2,8 +2,8 @@
 podgeDocReady(() => {
   console.log("log from social-login.js");
   const podgeApp = new PodgeApp(window.location.href);
-  const loginForm = podgeApp.getLoginForm();
-  console.log(loginForm);
+  const forms = podgeApp.getForms();
+  console.log(forms);
 
   // if (podgeApp.isLoginPage()) console.log("hello from login :)");
 });

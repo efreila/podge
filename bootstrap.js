@@ -38,6 +38,10 @@ class PodgeApp {
     head.appendChild(script);
   }
 
+  isDomElementVisible(element) {
+    return element.offsetWidth > 0 || element.offsetHeight > 0;
+  }
+
   // SOCIAL LOGIN
   isLoginPage(url) {
     return url.indexOf("login") !== -1;
@@ -47,29 +51,28 @@ class PodgeApp {
     return url.indexOf("register") !== -1;
   }
 
-  getLoginForm() {
-    const loginForm = document.querySelector("form[action='/account/login']");
-    return loginForm;
+  getForms(html) {
+    let forms = [];
+    if (!!html) {
+      // TODO!!!
+      // forms = html.find("form");
+    } else {
+      forms = document
+        .querySelectorAll("form")
+        .filter((form) => this.isDomElementVisible(form));
+    }
+
+    const loginForms = [];
+    for (const form of forms) {
+      const formActionAttribute = form.getAttribute("action");
+
+      if (formActionAttribute?.indexOf("account") !== -1) {
+        loginForms.push(form);
+      }
+    }
+
+    return loginForms;
   }
-
-  // var getCreateAccountForm = function (html) {
-  //   if (!!html) {
-  //     var forms = html.find("form");
-  //   } else {
-  //     var forms = $("form:visible");
-  //   }
-
-  //   var loginForms = [];
-  //   for (var i = 0; i < forms.length; i++) {
-  //     var form = $(forms[i]);
-  //     action = form.attr("action");
-
-  //     if (action && action.indexOf("account") !== -1) {
-  //       loginForms.push(form);
-  //     }
-  //   }
-  //   return loginForms;
-  // };
 }
 
 // IIFE below is a substitute implementation for jQuery's .ready() method
