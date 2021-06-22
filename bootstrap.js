@@ -4,7 +4,7 @@ class PodgeApp {
 
   constructor(url) {
     if (PodgeApp.instance) {
-      return podgeApp.instance;
+      return PodgeApp.instance;
     }
 
     this.importNecessaryScripts(url);
