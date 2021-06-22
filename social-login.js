@@ -1,55 +1,6 @@
-// Note: This script is run on every page
-class PodgeApp {
-  static instance;
-
-  constructor(url) {
-    if (PodgeApp.instance) {
-      return podgeApp.instance;
-    }
-
-    this.importNecessaryScripts(url);
-
-    PodgeApp.instance = this;
-  }
-
-  importNecessaryScripts(url) {
-    if (this.isLoginPage(url) || this.isRegisterPage(url)) {
-      console.log("NEED TO IMPORT SOCIAL LOGIN SCRIPT HERE");
-      this.loadScript(
-        "https://efreila.github.io/podge-bootstrap/social-login.js"
-      );
-    }
-  }
-
-  // GENERAL
-  loadScript(url, callback) {
-    // Adding the script tag to the head as suggested before
-    const head = document.head;
-    const script = document.createElement("script");
-    script.type = "text/javascript";
-    script.src = url;
-
-    // Then bind the event to the callback function.
-    // There are several events for cross browser compatibility.
-    script.onreadystatechange = callback;
-    script.onload = callback;
-
-    // Fire the loading
-    head.appendChild(script);
-  }
-
-  // SOCIAL LOGIN
-  isLoginPage(url) {
-    return url.indexOf("login") !== -1;
-  }
-
-  isRegisterPage(url) {
-    return url.indexOf("register") !== -1;
-  }
-}
-
 // IIFE below is a substitute implementation for jQuery's .ready() method
 // Taken from https://github.com/jfriend00/docReady
+
 (function (funcName, baseObj) {
   "use strict";
   // The public function name defaults to window.docReady
@@ -135,8 +86,27 @@ class PodgeApp {
 
 // Runs when document has loaded
 podgeDocReady(() => {
-  console.log("log from bootstrap.js");
+  console.log("log from social-login.js");
   const podgeApp = new PodgeApp(window.location.href);
 
   // if (podgeApp.isLoginPage()) console.log("hello from login :)");
 });
+
+// var getCreateAccountForm = function (html) {
+//   if (!!html) {
+//     var forms = html.find("form");
+//   } else {
+//     var forms = $("form:visible");
+//   }
+
+//   var loginForms = [];
+//   for (var i = 0; i < forms.length; i++) {
+//     var form = $(forms[i]);
+//     action = form.attr("action");
+
+//     if (action && action.indexOf("account") !== -1) {
+//       loginForms.push(form);
+//     }
+//   }
+//   return loginForms;
+// };
