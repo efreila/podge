@@ -4,6 +4,7 @@ podgeDocReady(() => {
   const podgeApp = new PodgeApp(window.location.href);
   const forms = podgeApp.getForms();
   console.log(forms);
+  console.log("new new");
 
   // if (podgeApp.isLoginPage()) console.log("hello from login :)");
 });
