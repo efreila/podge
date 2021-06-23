@@ -14,8 +14,6 @@ class PodgeAppSocialLogin {
 
     if (socialLoginButtonsAdded) return;
 
-    indexOf("login") !== -1;
-
     if (window.location.href.indexOf("login") !== -1) {
       this.addSocialLoginButtonsToLoginPage();
     } else if (window.location.href.indexOf("register") !== -1) {
