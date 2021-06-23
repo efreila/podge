@@ -1,55 +1,25 @@
 // Note: This script is run on every page
-class PodgeApp {
-  static instance;
-
-  constructor(url) {
-    if (PodgeApp.instance) {
-      return PodgeApp.instance;
-    }
-
-    this.importNecessaryScripts(url);
-
-    PodgeApp.instance = this;
-  }
-
-  importNecessaryScripts(url) {
-    if (this.isLoginPage(url) || this.isRegisterPage(url)) {
-      this.loadScript(
-        "https://efreila.github.io/podge-bootstrap/social-login.js"
-      );
-    }
-  }
-
-  // GENERAL HELPERS
-  loadScript(url, callback) {
-    // Adding the script tag to the head as suggested before
-    const head = document.head;
-    const script = document.createElement("script");
-    script.type = "text/javascript";
-    script.src = url;
-
-    // Then bind the event to the callback function.
-    // There are several events for cross browser compatibility.
-    script.onreadystatechange = callback;
-    script.onload = callback;
-
-    // Fire the loading
-    head.appendChild(script);
-  }
-
-  isDomElementVisible(element) {
-    return element.offsetWidth > 0 || element.offsetHeight > 0;
-  }
-
-  // SOCIAL LOGIN
-  isLoginPage(url) {
-    return url.indexOf("login") !== -1;
-  }
-
-  isRegisterPage(url) {
-    return url.indexOf("register") !== -1;
-  }
+if (!window.podgeApp || typeof window.podgeApp == "undefined") {
+  window.podgeApp = {};
 }
+
+window.podgeApp.loadScript = (url, callback) => {
+  // Adding the script tag to the head as suggested before
+  const head = document.head;
+  const script = document.createElement("script");
+  script.type = "text/javascript";
+  script.src = url;
+
+  // Then bind the event to the callback function.
+  // There are several events for cross browser compatibility.
+  script.onreadystatechange = callback;
+  script.onload = callback;
+
+  // Fire the loading
+  head.appendChild(script);
+};
+window.podgeApp.isLoginPage = (url) => url.indexOf("login") !== -1;
+window.podgeApp.isRegisterPage = (url) => url.indexOf("register") !== -1;
 
 // IIFE below is a substitute implementation for jQuery's .ready() method
 // Taken from https://github.com/jfriend00/docReady
@@ -139,5 +109,13 @@ class PodgeApp {
 // Runs when document has loaded
 podgeDocReady(() => {
   console.log("log from bootstrap.js");
-  const podgeApp = new PodgeApp(window.location.href);
+  const currentUrl = window.location.href;
+  if (
+    window.podgeApp.isLoginPage(currentUrl) ||
+    window.podgeApp.isRegisterPage(currentUrl)
+  ) {
+    window.podgeApp.loadScript(
+      "https://efreila.github.io/podge-bootstrap/social-login.js"
+    );
+  }
 });

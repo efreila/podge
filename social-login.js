@@ -1,69 +1,45 @@
-class PodgeAppSocialLogin {
-  static instance;
+window.podgeApp.addSocialLoginButtonsToLoginPage = () => {
+  const loginForm = document.querySelector("form[action='/account/login']");
+  const testBtn = document.createElement("button");
+  testBtn.innerHTML = "LOGIN";
+  loginForm.appendChild(testBtn);
+};
 
-  constructor() {
-    if (PodgeAppSocialLogin.instance) {
-      return PodgeAppSocialLogin.instance;
-    }
+window.podgeApp.addSocialLoginButtonsToRegisterPage = () => {
+  const registerForm = document.querySelector("form[action='/account']");
+  const testBtn = document.createElement("button");
+  testBtn.innerHTML = "REGISTER";
+  registerForm.appendChild(testBtn);
+};
 
-    PodgeAppSocialLogin.instance = this;
+window.podgeApp.addSocialLoginButtons = () => {
+  const socialLoginButtonsAdded = window.podgeApp.replaceCustomDivs();
+
+  if (socialLoginButtonsAdded) return;
+
+  if (window.location.href.indexOf("login") !== -1) {
+    window.podgeApp.addSocialLoginButtonsToLoginPage();
+  } else if (window.location.href.indexOf("register") !== -1) {
+    window.podgeApp.addSocialLoginButtonsToRegisterPage();
   }
+};
 
-  addSocialLoginButtons() {
-    const socialLoginButtonsAdded = this.replaceCustomDivs();
+window.podgeApp.replaceCustomDivs = () => {
+  const customSocialLoginDivs = document.querySelectorAll(
+    ".podge-social-login"
+  );
 
-    if (socialLoginButtonsAdded) return;
+  if (customSocialLoginDivs.length === 0) return false;
 
-    if (window.location.href.indexOf("login") !== -1) {
-      this.addSocialLoginButtonsToLoginPage();
-    } else if (window.location.href.indexOf("register") !== -1) {
-      this.addSocialLoginButtonsToRegisterPage();
-    }
-  }
+  customSocialLoginDivs.forEach((item) => {
+    item.replaceWith("Replaced Item");
+  });
 
-  replaceCustomDivs() {
-    const customSocialLoginDivs = document.querySelectorAll(
-      ".podge-social-login"
-    );
-
-    if (customSocialLoginDivs.length === 0) return false;
-
-    customSocialLoginDivs.forEach((item) => {
-      item.replaceWith("Replaced Item");
-    });
-
-    return true;
-  }
-
-  addSocialLoginButtonsToLoginPage() {
-    const loginForm = document.querySelector("form[action='/account/login']");
-    const testBtn = document.createElement("button");
-    testBtn.innerHTML = "LOGIN";
-    loginForm.appendChild(testBtn);
-  }
-  addSocialLoginButtonsToRegisterPage() {
-    const registerForm = document.querySelector("form[action='/account']");
-    const testBtn = document.createElement("button");
-    testBtn.innerHTML = "REGISTER";
-    registerForm.appendChild(testBtn);
-  }
-}
+  return true;
+};
 
 // Runs when document has loaded (function is declared in bootstrap.js)
 podgeDocReady(() => {
   console.log("log from social-login.js");
-  const podgeApp = new PodgeApp(window.location.href);
-  const podgeAppSocialLogin = new PodgeAppSocialLogin();
-
-  podgeAppSocialLogin.addSocialLoginButtons();
+  window.podgeApp.addSocialLoginButtons();
 });
-
-//   if (customSocialLoginDivs) {
-//     for (const item of customSocialLoginDivs) {
-//       const formActionAttribute = form.getAttribute("action");
-
-//       if (formActionAttribute?.indexOf("account") !== -1) {
-//         loginForms.push(form);
-//       }
-//     }
-//   }
