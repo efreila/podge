@@ -13,9 +13,7 @@ window.podgeApp.addSocialLoginButtonsToRegisterPage = () => {
 };
 
 window.podgeApp.addSocialLoginButtons = () => {
-  const socialLoginButtonsAdded = window.podgeApp.replaceCustomDivs();
-
-  if (socialLoginButtonsAdded) return;
+  window.podgeApp.replaceCustomDivs();
 
   if (window.location.href.indexOf("login") !== -1) {
     window.podgeApp.addSocialLoginButtonsToLoginPage();
@@ -29,13 +27,9 @@ window.podgeApp.replaceCustomDivs = () => {
     ".podge-social-login"
   );
 
-  if (customSocialLoginDivs.length === 0) return false;
-
-  customSocialLoginDivs.forEach((item) => {
+  customSocialLoginDivs?.forEach((item) => {
     item.replaceWith("Replaced Item");
   });
-
-  return true;
 };
 
 // Runs when document has loaded (function is declared in bootstrap.js)
