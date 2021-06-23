@@ -14,7 +14,6 @@ class PodgeApp {
 
   importNecessaryScripts(url) {
     if (this.isLoginPage(url) || this.isRegisterPage(url)) {
-      console.log("NEED TO IMPORT SOCIAL LOGIN SCRIPT HERE");
       this.loadScript(
         "https://efreila.github.io/podge-bootstrap/social-login.js"
       );
@@ -49,29 +48,6 @@ class PodgeApp {
 
   isRegisterPage(url) {
     return url.indexOf("register") !== -1;
-  }
-
-  getForms(html) {
-    let forms = [];
-    if (!!html) {
-      // TODO!!!
-      // forms = html.find("form");
-    } else {
-      forms = [...document.querySelectorAll("form")].filter((form) =>
-        this.isDomElementVisible(form)
-      );
-    }
-
-    const loginForms = [];
-    for (const form of forms) {
-      const formActionAttribute = form.getAttribute("action");
-
-      if (formActionAttribute?.indexOf("account") !== -1) {
-        loginForms.push(form);
-      }
-    }
-
-    return loginForms;
   }
 }
 
