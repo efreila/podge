@@ -1,4 +1,9 @@
 window.podgeApp.addSocialLoginButtonsToLoginPage = () => {
+  // const metaTag = document.createElement('meta');
+  // metaTag.name = 'google-signin-client_id';
+  // metaTag.content =
+  //   '945808926799-netcei3f5cp835o32p2bd62up528o460.apps.googleusercontent.com.apps.googleusercontent.com';
+
   const loginForm = document.querySelector("form[action='/account/login']");
   const testBtn = document.createElement("button");
   testBtn.innerHTML = "LOGIN";
@@ -74,10 +79,36 @@ window.podgeApp.fetchSocialLoginConfigurations = async () => {
   }
 };
 
+window.podgeApp.generateSocialLoginButtons = () => {
+  const socialLoginConfigs = window.podgeApp?.data?.socialLoginConfigs;
+
+  socialLoginConfigs.forEach((config) => {
+    if (!config.isEnabled) return;
+
+    window.podgeApp.generateSocialLoginButton(config.provider);
+  });
+};
+
+window.podgeApp.generateSocialLoginButton = (provider) => {
+  switch (provider) {
+    case "GOOGLE":
+      console.log("Google provider");
+      break;
+
+    default:
+      break;
+  }
+};
+
 // Runs when document has loaded (function is declared in bootstrap.js)
 podgeDocReady(async () => {
   console.log("Fetching social login configurations...");
+  // Step 1: Fetch social login configuration data
   await window.podgeApp.fetchSocialLoginConfigurations();
 
+  // Step 2: Generate social login buttons
+  window.podgeApp.generateSocialLoginButtons();
+
+  // Step 3: Append buttons
   window.podgeApp.addSocialLoginButtons();
 });
