@@ -1,9 +1,4 @@
 window.podgeApp.addSocialLoginButtonsToLoginPage = () => {
-  // const metaTag = document.createElement('meta');
-  // metaTag.name = 'google-signin-client_id';
-  // metaTag.content =
-  //   '945808926799-netcei3f5cp835o32p2bd62up528o460.apps.googleusercontent.com.apps.googleusercontent.com';
-
   const loginForm = document.querySelector("form[action='/account/login']");
   const testBtn = document.createElement("button");
   testBtn.innerHTML = "LOGIN";
@@ -81,23 +76,41 @@ window.podgeApp.fetchSocialLoginConfigurations = async () => {
 
 window.podgeApp.generateSocialLoginButtons = () => {
   const socialLoginConfigs = window.podgeApp?.data?.socialLoginConfigs;
+  const socialLoginButtonsContainer = document.createElement("div");
 
   socialLoginConfigs.forEach((config) => {
     if (!config.isEnabled) return;
 
-    window.podgeApp.generateSocialLoginButton(config.provider);
+    window.podgeApp.generateSocialLoginButton(config);
   });
 };
 
-window.podgeApp.generateSocialLoginButton = (provider) => {
-  switch (provider) {
+window.podgeApp.generateSocialLoginButton = (socialLoginConfig) => {
+  switch (socialLoginConfig.provider) {
     case "GOOGLE":
-      console.log("Google provider");
+      console.log("Adding Google social login button");
+      window.podgeApp.createGoogleSocialLoginButton();
       break;
 
     default:
       break;
   }
+};
+
+window.podgeApp.createGoogleSocialLoginButton = () => {
+  //Step 1: Add necessary meta tag
+  const metaTag = document.createElement("meta");
+  metaTag.name = "google-signin-client_id";
+  metaTag.content =
+    "945808926799-netcei3f5cp835o32p2bd62up528o460.apps.googleusercontent.com.apps.googleusercontent.com";
+
+  //Step 2: Add necessary script tag
+  //  window.podgeApp.loadScript("https://apis.google.com/js/platform.js?onload=renderButton", () => {
+  window.podgeApp.loadScript("https://apis.google.com/js/platform.js", () => {
+    console.log("Loaded Google API");
+  });
+
+  document.head.appendChild(metaTag);
 };
 
 // Runs when document has loaded (function is declared in bootstrap.js)
@@ -107,8 +120,8 @@ podgeDocReady(async () => {
   await window.podgeApp.fetchSocialLoginConfigurations();
 
   // Step 2: Generate social login buttons
-  window.podgeApp.generateSocialLoginButtons();
+  const socialLoginButtons = window.podgeApp.generateSocialLoginButtons();
 
   // Step 3: Append buttons
-  window.podgeApp.addSocialLoginButtons();
+  window.podgeApp.addSocialLoginButtons(socialLoginButtons);
 });
