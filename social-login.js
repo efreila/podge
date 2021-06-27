@@ -139,7 +139,7 @@ podgeDocReady(async () => {
     ${
       socialLoginConfigs.some(
         (config) => config.provider === "GOOGLE" && config.isEnabled
-      ) && <div id="podge-google-social-login"></div>
+      ) && '<div id="podge-google-social-login"></div>'
     }
   `;
 
