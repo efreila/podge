@@ -15,9 +15,11 @@ window.podgeApp.addSocialLoginButtonsToRegisterPage = () => {
 window.podgeApp.addSocialLoginButtons = () => {
   window.podgeApp.replaceCustomDivs();
 
-  if (window.location.href.indexOf("login") !== -1) {
+  const currentUrl = window.location.href;
+
+  if (window.podgeApp.isLoginPage(currentUrl)) {
     window.podgeApp.addSocialLoginButtonsToLoginPage();
-  } else if (window.location.href.indexOf("register") !== -1) {
+  } else if (window.podgeApp.isRegisterPage(currentUrl)) {
     window.podgeApp.addSocialLoginButtonsToRegisterPage();
   }
 };
@@ -32,8 +34,50 @@ window.podgeApp.replaceCustomDivs = () => {
   });
 };
 
+window.podgeApp.fetchSocialLoginConfigurations = async () => {
+  try {
+    const response = await fetch("http://localhost:3001/graphql", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        query: `
+                  query GetSocialLoginConfigurations($hostname: String) {
+                      socialLoginConfigurations(hostname: $hostname) {
+                        id
+                        isEnabled
+                        provider
+                      }
+                    }
+                    `,
+        variables: {
+          hostname: "podge-test.myshopify.com",
+        },
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+
+    const data = await response.json();
+
+    if (!window.podgeApp.data || typeof window.podgeApp.data == "undefined") {
+      window.podgeApp.data = {};
+    }
+
+    window.podgeApp.data.socialLoginConfigs =
+      data.data.socialLoginConfigurations;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 // Runs when document has loaded (function is declared in bootstrap.js)
-podgeDocReady(() => {
-  console.log("log from social-login.js");
+podgeDocReady(async () => {
+  console.log("Fetching social login configurations...");
+  await window.podgeApp.fetchSocialLoginConfigurations();
+
   window.podgeApp.addSocialLoginButtons();
 });
