@@ -131,8 +131,18 @@ podgeDocReady(async () => {
   await window.podgeApp.fetchSocialLoginConfigurations();
 
   // Step 2: Generate social login buttons
-  const socialLoginButtons = window.podgeApp.generateSocialLoginButtons();
+  //   const socialLoginButtons = window.podgeApp.generateSocialLoginButtons();
+  const socialLoginConfigs = window.podgeApp?.data?.socialLoginConfigs;
+  const socialLoginButtonsContainer = document.createElement("div");
+  socialLoginButtonsContainer.id = "podge-social-login-buttons";
+
+  socialLoginButtonsContainer.innerHTML = `
+    <div>Test div</div>
+  `;
+
+  const loginForm = document.querySelector("form[action='/account/login']");
+  loginForm.appendChild(socialLoginButtonsContainer);
 
   // Step 3: Append buttons
-  window.podgeApp.addSocialLoginButtons(socialLoginButtons);
+  //   window.podgeApp.addSocialLoginButtons(socialLoginButtons);
 });
