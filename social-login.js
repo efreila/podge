@@ -77,6 +77,7 @@ window.podgeApp.fetchSocialLoginConfigurations = async () => {
 window.podgeApp.generateSocialLoginButtons = () => {
   const socialLoginConfigs = window.podgeApp?.data?.socialLoginConfigs;
   const socialLoginButtonsContainer = document.createElement("div");
+  socialLoginButtonsContainer.id = "podge-social-login-buttons";
 
   socialLoginConfigs.forEach((config) => {
     if (!config.isEnabled) return;
@@ -89,6 +90,7 @@ window.podgeApp.generateSocialLoginButton = (socialLoginConfig) => {
   switch (socialLoginConfig.provider) {
     case "GOOGLE":
       console.log("Adding Google social login button");
+      console.log(document.querySelector("#podge-social-login-buttons"));
       window.podgeApp.createGoogleSocialLoginButton();
       break;
 
@@ -108,6 +110,15 @@ window.podgeApp.createGoogleSocialLoginButton = () => {
   //  window.podgeApp.loadScript("https://apis.google.com/js/platform.js?onload=renderButton", () => {
   window.podgeApp.loadScript("https://apis.google.com/js/platform.js", () => {
     console.log("Loaded Google API");
+    gapi.signin2.render("my-signin2", {
+      scope: "profile email",
+      width: 240,
+      height: 50,
+      longtitle: true,
+      theme: "dark",
+      // onsuccess: onSuccess,
+      // onfailure: onFailure,
+    });
   });
 
   document.head.appendChild(metaTag);
