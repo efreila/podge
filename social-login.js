@@ -110,7 +110,7 @@ window.podgeApp.createGoogleSocialLoginButton = () => {
   //  window.podgeApp.loadScript("https://apis.google.com/js/platform.js?onload=renderButton", () => {
   window.podgeApp.loadScript("https://apis.google.com/js/platform.js", () => {
     console.log("Loaded Google API");
-    gapi.signin2.render("my-signin2", {
+    gapi.signin2.render("podge-google-social-login", {
       scope: "profile email",
       width: 240,
       height: 50,
@@ -126,7 +126,6 @@ window.podgeApp.createGoogleSocialLoginButton = () => {
 
 // Runs when document has loaded (function is declared in bootstrap.js)
 podgeDocReady(async () => {
-  console.log("Fetching social login configurations...");
   // Step 1: Fetch social login configuration data
   await window.podgeApp.fetchSocialLoginConfigurations();
 
@@ -137,7 +136,11 @@ podgeDocReady(async () => {
   socialLoginButtonsContainer.id = "podge-social-login-buttons";
 
   socialLoginButtonsContainer.innerHTML = `
-    <div>Test div</div>
+    ${
+      socialLoginConfigs.some(
+        (config) => config.provider === "GOOGLE" && config.isEnabled
+      ) && <div id="podge-google-social-login"></div>
+    }
   `;
 
   const loginForm = document.querySelector("form[action='/account/login']");
