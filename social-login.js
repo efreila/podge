@@ -13,17 +13,35 @@ window.podgeApp.addSocialLoginButtonPlaceholders = () => {
   });
 };
 
-// window.podgeApp.replaceCustomDivs = () => {
-//   const customSocialLoginDivs = document.querySelectorAll(
-//     ".podge-social-login"
-//   );
+window.podgeApp.replacePlaceholderDivs = () => {
+  window.podgeApp.addSocialLoginWidgetJS();
+  window.podgeApp.addSocialLoginWidgetStyles();
+};
 
-//   customSocialLoginDivs?.forEach((item) => {
-//     item.replaceWith("Replaced Item");
-//   });
-// };
+window.podgeApp.addSocialLoginWidgetJS = () => {
+  const script = document.createElement("script");
+  script.type = "text/javascript";
+  script.src =
+    "https://d765dxpbqwh1m.cloudfront.net/SocialLoginWidget/podge-social-login-widget.esm.js";
+  script.type = "module";
+
+  //   script.onreadystatechange = callback;
+  //   script.onload = callback;
+
+  document.head.appendChild(script);
+};
+
+window.podgeApp.addSocialLoginWidgetStyles = () => {
+  const link = document.createElement("link");
+  link.rel = "stylesheet";
+  link.href =
+    "https://d765dxpbqwh1m.cloudfront.net/SocialLoginWidget/style.css";
+
+  document.head.appendChild(link);
+};
 
 // Runs when document has loaded (function is declared in bootstrap.js)
 podgeDocReady(async () => {
   window.podgeApp.addSocialLoginButtonPlaceholders();
+  window.podgeApp.replacePlaceholderDivs();
 });
