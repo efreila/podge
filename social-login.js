@@ -1,9 +1,6 @@
 window.podgeApp.addSocialLoginButtonPlaceholders = () => {
-  //   window.podgeApp.replaceCustomDivs();
-
   const forms = document.querySelectorAll(
-    "form[action='/account/login']",
-    "form[action='/account']"
+    "form[action='/account/login'], form[action='/account']"
   );
 
   forms.forEach((item) => {
@@ -24,9 +21,6 @@ window.podgeApp.addSocialLoginWidgetJS = () => {
   script.src =
     "https://d765dxpbqwh1m.cloudfront.net/SocialLoginWidget/podge-social-login-widget.esm.js";
   script.type = "module";
-
-  //   script.onreadystatechange = callback;
-  //   script.onload = callback;
 
   document.head.appendChild(script);
 };
