@@ -108,8 +108,8 @@ window.podgeApp.isRegisterPage = (url) => url.indexOf("register") !== -1;
 
 // Runs when document has loaded
 podgeDocReady(() => {
-  console.log("Adding Tailwind JIT");
-  window.podgeApp.loadScript("https://unpkg.com/tailwindcss-jit-cdn");
+  console.log("bootstrap.js ready...");
+  // window.podgeApp.loadScript("https://unpkg.com/tailwindcss-jit-cdn");
 
   const currentUrl = window.location.href;
   if (
